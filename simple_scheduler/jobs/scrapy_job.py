@@ -33,6 +33,8 @@ class ScrapyJob(job.JobBase):
         create_job_result = requests.post('http://event_processor:6800/schedule.json',
                                           data={'project': 'In2ItChicago', 'spider': spider_name})
         create_job_json = create_job_result.json()
+        if 'jobid' not in create_job_json:
+            raise Exception('jobid not in resulting json: '+ str(create_job_json))
         jobid = create_job_json['jobid']
 
         def timeout_callback():
