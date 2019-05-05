@@ -2,6 +2,7 @@
 
 import logging
 import requests
+from tenacity import retry, wait_exponential
 from ndscheduler import job
 from ndscheduler.pubsub import PubSub
 
@@ -29,18 +30,28 @@ class ScrapyJob(job.JobBase):
                                   '["http://localhost:8888/api/v1/jobs/ba12e", "DELETE"]')
         }
 
-    def run(self, spider_name):
-        create_job_result = requests.post('http://event_processor:6800/schedule.json',
+    @retry(wait=wait_exponential(min=1, max=16))
+    def schedule_spider(self, spider_name):
+        job_results = requests.post('http://event_processor:6800/schedule.json',
                                           data={'project': 'In2ItChicago', 'spider': spider_name})
-        create_job_json = create_job_result.json()
-        if 'jobid' not in create_job_json:
-            raise Exception('jobid not in resulting json: '+ str(create_job_json))
+        job_results_json = job_results.json()
+        if 'status' in job_results_json and job_results_json['status'] == 'error':
+            raise Exception('Error while scheduling spider: ' + str(job_results_json))
+        return job_results_json
+
+    @retry(wait=wait_exponential(min=1, max=16))
+    def get_results(self):
+        results = requests.get('http://event_processor:6800/listjobs.json',
+                                       params={'project': 'In2ItChicago'})
+        return results.json()
+
+    def run(self, spider_name):
+        create_job_json = self.schedule_spider(spider_name)
+        
         jobid = create_job_json['jobid']
 
         def timeout_callback():
-            job_results = requests.get('http://event_processor:6800/listjobs.json',
-                                       params={'project': 'In2ItChicago'})
-            jobs_json = job_results.json()
+            jobs_json = self.get_results()
             possible_states = ['pending', 'running', 'finished']
             job_state = next((state for state in possible_states
                               for job in jobs_json[state] if job['id'] == jobid), 'not found')
