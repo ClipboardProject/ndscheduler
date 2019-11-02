@@ -33,7 +33,7 @@ class ScrapyJob(job.JobBase):
     @retry(wait=wait_exponential(min=1, max=16))
     def schedule_spider(self, spider_name):
         job_results = requests.post('http://event_processor:6800/schedule.json',
-                                          data={'project': 'In2ItChicago', 'spider': spider_name})
+                                    data={'project': 'In2ItChicago', 'spider': spider_name})
         job_results_json = job_results.json()
         if 'status' in job_results_json and job_results_json['status'] == 'error':
             raise Exception('Error while scheduling spider: ' + str(job_results_json))
@@ -42,12 +42,12 @@ class ScrapyJob(job.JobBase):
     @retry(wait=wait_exponential(min=1, max=16))
     def get_results(self):
         results = requests.get('http://event_processor:6800/listjobs.json',
-                                       params={'project': 'In2ItChicago'})
+                               params={'project': 'In2ItChicago'})
         return results.json()
 
     def run(self, spider_name):
         create_job_json = self.schedule_spider(spider_name)
-        
+
         jobid = create_job_json['jobid']
 
         def timeout_callback():
