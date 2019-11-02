@@ -1,5 +1,6 @@
 """Settings to override default settings."""
 
+import os
 import logging
 
 #
@@ -21,7 +22,7 @@ DATABASE_CLASS = 'ndscheduler.core.datastore.providers.postgresql.DatastorePostg
 DATABASE_CONFIG_DICT = {
     'user': 'postgres',
     'password': 'postgres',
-    'hostname': 'postgres',
+    'hostname': os.getenv('HOSTNAME'),
     'port': 5432,
     'database': 'scheduler',
     'sslmode': 'disable'

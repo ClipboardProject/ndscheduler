@@ -22,10 +22,15 @@ class DatastorePostgresql(base.DatastoreBase):
         :rtype: str
         """
 
-        return 'postgresql://%s:%s@%s:%d/%s?sslmode=%s' % (
-            settings.DATABASE_CONFIG_DICT['user'],
-            settings.DATABASE_CONFIG_DICT['password'],
-            settings.DATABASE_CONFIG_DICT['hostname'],
-            settings.DATABASE_CONFIG_DICT['port'],
-            settings.DATABASE_CONFIG_DICT['database'],
-            settings.DATABASE_CONFIG_DICT['sslmode'])
+        user = settings.DATABASE_CONFIG_DICT['user']
+        password = settings.DATABASE_CONFIG_DICT['password']
+        hostname = settings.DATABASE_CONFIG_DICT['hostname']
+        port = settings.DATABASE_CONFIG_DICT['port']
+        database = settings.DATABASE_CONFIG_DICT['database']
+        sslmode = settings.DATABASE_CONFIG_DICT['sslmode']
+
+        if hostname.startswith('/'):
+            # socket
+            return f'postgresql://{user}:{password}@/{database}?host={hostname}'
+        else:
+            return f'postgresql://{user}:{password}@{hostname}:{port}/{database}?sslmode={sslmode}'
