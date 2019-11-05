@@ -10,5 +10,11 @@ RUN apk update && apk add --no-cache postgresql-libs && \
     apk --purge del .build-deps
 
 FROM ndscheduler_common AS ndscheduler_dev
+WORKDIR /data/
 COPY package.json ./
 RUN apk add nodejs-npm && npm install
+ENV PATH /data/node_modules/.bin:$PATH
+WORKDIR /usr/src/app/ndscheduler
+
+FROM ndscheduler_common AS ndscheduler_prod
+COPY . ./
