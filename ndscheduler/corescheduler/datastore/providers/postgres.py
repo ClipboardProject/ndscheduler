@@ -6,13 +6,14 @@ from ndscheduler.corescheduler.datastore import base
 class DatastorePostgres(base.DatastoreBase):
 
     def get_db_url(self):
-         """
-        DATABASE_CONFIG_DICT = {
-            'user': 'myuser',
-            'password': 'password',
-            'hostname': 'mydb.domain.com',
-            'port': 5432,
-            'database': 'mydatabase',
+        """Returns the db url to establish a Postgres connection, where db_config is passed in
+        on initialization as:
+        {
+            'user': 'my_user',
+            'password': 'my_password',
+            'hostname': 'db.hostname.com',
+            'port': 8888,
+            'database': 'my_db',
             'sslmode': 'disable'
         }
         :return: database url
