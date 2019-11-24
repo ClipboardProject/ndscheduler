@@ -16,8 +16,7 @@ class DatastorePostgres(base.DatastoreBase):
             'database': 'my_db',
             'sslmode': 'disable'
         }
-        :return: database url
-        :rtype: str
+        :return: string db url
         """
 
         user = self.db_config['user']
