@@ -3,8 +3,8 @@
 # import logging
 # import os
 
-# from ndscheduler import job
-# from apns import APNs, Payload
+#from ndscheduler.corescheduler import job
+#from apns import APNs, Payload
 
 # logger = logging.getLogger(__name__)
 

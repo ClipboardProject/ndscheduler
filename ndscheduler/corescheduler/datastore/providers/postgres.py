@@ -1,13 +1,11 @@
-"""Represents PostgreSQL datastore."""
+"""Represents Postgres datastore."""
 
-from ndscheduler import settings
-from ndscheduler.core.datastore.providers import base
+from ndscheduler.corescheduler.datastore import base
 
 
-class DatastorePostgresql(base.DatastoreBase):
+class DatastorePostgres(base.DatastoreBase):
 
-    @classmethod
-    def get_db_url(cls):
+    def get_db_url(self):
         """
         DATABASE_CONFIG_DICT = {
             'user': 'myuser',
@@ -22,12 +20,12 @@ class DatastorePostgresql(base.DatastoreBase):
         :rtype: str
         """
 
-        user = settings.DATABASE_CONFIG_DICT['user']
-        password = settings.DATABASE_CONFIG_DICT['password']
-        hostname = settings.DATABASE_CONFIG_DICT['hostname']
-        port = settings.DATABASE_CONFIG_DICT['port']
-        database = settings.DATABASE_CONFIG_DICT['database']
-        sslmode = settings.DATABASE_CONFIG_DICT['sslmode']
+        user = self.db_config['user']
+        password = self.db_config['password']
+        hostname = self.db_config['hostname']
+        port = self.db_config['port']
+        database = self.db_config['database']
+        sslmode = self.db_config['sslmode']
 
         if hostname.startswith('/'):
             # socket

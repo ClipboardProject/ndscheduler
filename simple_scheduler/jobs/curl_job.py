@@ -2,7 +2,8 @@
 
 import logging
 import requests
-from ndscheduler import job
+
+from ndscheduler.corescheduler import job
 
 logger = logging.getLogger(__name__)
 
