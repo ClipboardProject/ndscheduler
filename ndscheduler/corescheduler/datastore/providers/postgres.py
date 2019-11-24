@@ -6,7 +6,7 @@ from ndscheduler.corescheduler.datastore import base
 class DatastorePostgres(base.DatastoreBase):
 
     def get_db_url(self):
-        """
+         """
         DATABASE_CONFIG_DICT = {
             'user': 'myuser',
             'password': 'password',
@@ -15,7 +15,6 @@ class DatastorePostgres(base.DatastoreBase):
             'database': 'mydatabase',
             'sslmode': 'disable'
         }
-
         :return: database url
         :rtype: str
         """
