@@ -1,4 +1,4 @@
-FROM python:3.7.3-alpine AS ndscheduler_common
+FROM python:3.8-alpine AS ndscheduler_common
 WORKDIR /usr/src/app/ndscheduler
 ENV PYTHONPATH "${PYTHONPATH}:."
 COPY ./requirements.txt ./
