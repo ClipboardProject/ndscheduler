@@ -3,7 +3,7 @@
 import logging
 import requests
 from tenacity import retry, wait_exponential
-from ndscheduler import job
+from ndscheduler.corescheduler import job
 from ndscheduler.pubsub import PubSub
 
 logger = logging.getLogger(__name__)

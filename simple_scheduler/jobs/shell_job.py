@@ -3,7 +3,7 @@
 from subprocess import Popen
 import subprocess
 
-from ndscheduler import job
+from ndscheduler.corescheduler import job
 
 
 class ShellJob(job.JobBase):

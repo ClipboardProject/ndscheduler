@@ -18,7 +18,7 @@ logging.getLogger().setLevel(logging.DEBUG)
 
 JOB_CLASS_PACKAGES = ['simple_scheduler.jobs']
 
-DATABASE_CLASS = 'ndscheduler.core.datastore.providers.postgresql.DatastorePostgresql'
+DATABASE_CLASS = 'ndscheduler.corescheduler.datastore.providers.postgres.DatastorePostgres'
 DATABASE_CONFIG_DICT = {
     'user': 'postgres',
     'password': 'postgres',
