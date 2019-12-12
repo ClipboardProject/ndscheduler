@@ -18,10 +18,16 @@ class DatastorePostgres(base.DatastoreBase):
         }
         :return: string db url
         """
-        return 'postgresql://%s:%s@%s:%d/%s?sslmode=%s' % (
-            self.db_config['user'],
-            self.db_config['password'],
-            self.db_config['hostname'],
-            self.db_config['port'],
-            self.db_config['database'],
-            self.db_config['sslmode'])
+
+        user = self.db_config['user']
+        password = self.db_config['password']
+        hostname = self.db_config['hostname']
+        port = self.db_config['port']
+        database = self.db_config['database']
+        sslmode = self.db_config['sslmode']
+
+        if hostname.startswith('/'):
+            # socket
+            return f'postgresql://{user}:{password}@/{database}?host={hostname}'
+        else:
+            return f'postgresql://{user}:{password}@{hostname}:{port}/{database}?sslmode={sslmode}'

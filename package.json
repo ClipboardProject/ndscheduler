@@ -1,0 +1,9 @@
+{
+    "name": "ndscheduler",
+    "version": "1.0.0",
+    "description": "nd scheduler",
+    "private": true,
+    "dependencies": {
+        "nodemon": "^1.19.4"
+    }
+}

@@ -1,0 +1,1 @@
+docker build "${@:2}" -f $(dirname $0)/build_$1/Dockerfile -t ndscheduler_$1 $(dirname $0)

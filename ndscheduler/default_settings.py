@@ -46,9 +46,9 @@ JOB_MISFIRE_GRACE_SEC = 3600
 #
 # Database settings
 #
-JOBS_TABLENAME = 'scheduler_jobs'
-EXECUTIONS_TABLENAME = 'scheduler_execution'
-AUDIT_LOGS_TABLENAME = 'scheduler_jobauditlog'
+JOBS_TABLENAME = 'jobs'
+EXECUTIONS_TABLENAME = 'execution'
+AUDIT_LOGS_TABLENAME = 'jobauditlog'
 
 DATABASE_TABLENAMES = {
     'jobs_tablename': JOBS_TABLENAME,

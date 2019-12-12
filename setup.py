@@ -75,16 +75,16 @@ setup(
     extras_require={'python_version<"3.3"': ['funcsigs']},
     tests_require=[
         'funcsigs',
-        'mock >= 1.1.2',
+        'mock == 2.0.0',
         'nose',
     ],
     test_suite='nose.collector',
     install_requires=[
-        'APScheduler >= 3.0.0',
-        'SQLAlchemy >= 1.0.0',
-        'future >= 0.15.2',
-        'tornado < 6',
-        'python-dateutil >= 2.2',
+        'APScheduler == 3.5.3',
+        'SQLAlchemy == 1.2.12',
+        'future == 0.16',
+        'tornado == 5.1.1',
+        'python-dateutil == 2.2'
     ],
     classifiers=classifiers,
     cmdclass={'clean': CleanHook},
