@@ -44,7 +44,7 @@ class DatastoreBase(sched_sqlalchemy.SQLAlchemyJobStore):
         }
         If any of these keys is not provided, the default table name is selected from constants.py
         """
-        self.metadata = MetaData()
+        self.metadata = MetaData(schema='scheduler')
         self.table_names = table_names
         self.db_config = db_config
 
@@ -64,7 +64,7 @@ class DatastoreBase(sched_sqlalchemy.SQLAlchemyJobStore):
         self.executions_table = tables.get_execution_table(self.metadata, executions_tablename)
         self.auditlogs_table = tables.get_auditlogs_table(self.metadata, auditlogs_tablename)
 
-        super(DatastoreBase, self).__init__(url=self.get_db_url(), tablename=jobs_tablename)
+        super(DatastoreBase, self).__init__(url=self.get_db_url(), tablename=jobs_tablename, tableschema='scheduler')
 
         self.metadata.create_all(self.engine)
 
