@@ -36,17 +36,20 @@ class CurlJob(job.JobBase):
 
         session = requests.Session()
         authorization = None
-        if username != None and password != None:
-            token = session.post(login_endpoint, json={'email': username, 'password': password}).content.decode()
+        if username is not None and password is not None:
+            token = session.post(login_endpoint,
+                                 json={'email': username, 'password': password}).content.decode()
             authorization = f'Bearer {token}'
         if request_type == 'POST':
             result = session.request(request_type, url,
                                      timeout=self.TIMEOUT,
-                                     headers={'Content-Type': 'application/json', 'Authorization': authorization},
+                                     headers={'Content-Type': 'application/json',
+                                              'Authorization': authorization},
                                      json=data)
             return result.text
         else:
-            result = session.request(request_type, url, timeout=self.TIMEOUT, headers={'Authorization': authorization})
+            result = session.request(request_type, url, timeout=self.TIMEOUT,
+                                     headers={'Authorization': authorization})
             return result.text
 
 
