@@ -43,7 +43,7 @@ class PubSub:
         else:
             raise Exception(f'Tried to publish key {key} but no subscribers were found. '
                             'It''s possible that the subscriber timeout value needs to be '
-                            'increased f one was supplied.')
+                            'increased if one was supplied.')
 
     @staticmethod
     def unsubscribe(key):
